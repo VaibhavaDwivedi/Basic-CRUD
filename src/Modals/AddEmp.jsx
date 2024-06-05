@@ -1,5 +1,6 @@
 import React from "react";
 import { baseUrl } from "../EmployeePage";
+import axios from "axios";
 
 const AddEmp = ({ setShowAddDetail, empObject, setEmpObject }) => {
   //To close the pop up to add details
@@ -16,18 +17,33 @@ const AddEmp = ({ setShowAddDetail, empObject, setEmpObject }) => {
   };
 
   const handleEmpData = async () => {
-    const res = await fetch(`http://localhost:3000/users`, {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify({
-        _id: empObject.id,
-        name: empObject.Name,
-        age: empObject.Age,
-        parent_id: empObject.parentId, // Foreign key for _id
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    // const res = await fetch(`http://localhost:3000/users`, {
+    //   headers: { "Content-Type": "application/json" },
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     _id: empObject.id,
+    //     name: empObject.Name,
+    //     age: empObject.Age,
+    //     parent_id: empObject.parentId, // Foreign key for _id
+    //   }),
+    // })
+    //   .then((response) => response.json())
+
+    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ********************  With axios don't need to give header and body just give the URL, OBJECT   **********************
+    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    try {
+      const res = await axios
+        .post(`http://localhost:3000/users`, {
+          _id: empObject.id,
+          name: empObject.Name,
+          age: empObject.Age,
+          parent_id: empObject.parentId, // Foreign key for _id
+        })
+        .then((data) => console.log(data));
+    } catch (error) {
+      console.log(error);
+    }
     window.location.reload();
   };
 

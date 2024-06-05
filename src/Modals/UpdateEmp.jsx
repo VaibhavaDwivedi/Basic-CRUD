@@ -21,7 +21,7 @@ const UpdateEmp = ({ id, setShowUpdate }) => {
   // console.log("id on update page", id);
   const handleUpdate = (id) => {
     console.log("id inside update funct:", id);
-    axios.patch(`http://localhost:3000/users/${id}`, user);
+    axios.patch(`http://localhost:3000/users/${id}`, user); ///with axios just URL and OBJECT
     window.location.reload();
   };
   const handleInput = () => {};
